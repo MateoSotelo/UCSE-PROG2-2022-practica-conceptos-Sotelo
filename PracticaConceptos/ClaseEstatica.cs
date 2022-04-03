@@ -59,14 +59,22 @@ namespace PracticaConceptos
     }
     public class ResultadosDecimales
     {
-        public static decimal operator /(int entero1, int entero2)
+        public int Entero { get; set; }
+        public decimal Resultado { get; set; }
+        public ResultadosDecimales(int entero)
         {
-            return Convert.ToDecimal(entero1) / Convert.ToDecimal(entero2);
+            this.Entero = entero;
+        }
+        public static decimal operator /(ResultadosDecimales resultadosDecimales,int entero)
+        {
+            decimal Resultado = Convert.ToDecimal(resultadosDecimales.Entero) / Convert.ToDecimal(entero);
+            return Resultado;
         }
     }
 
     public static class ClaseEstatica
     {
+      
         public static int ObtenerCantidadDePalabras(this string palabras)
         {
             int CantidadPalabras = 0;
