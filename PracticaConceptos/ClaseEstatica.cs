@@ -3,9 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace PracticaConceptos
 {
+    public class Cliente
+    {
+        public string Nombre { get; set; }
+        public string Cuit { get; set; }
+        public double Saldo { get; set; }
+        public Cliente(double saldo)
+        {
+            this.Saldo = saldo;
+        }
+        public static Cliente operator -(Cliente cliente1, Cliente cliente2)
+        {
+            if (cliente1.Cuit == cliente2.Cuit)
+            {
+                return new Cliente(Math.Sqrt(Math.Pow(cliente1.Saldo -cliente2.Saldo, 2)));
+            }
+            else
+            {
+                if (cliente1.Saldo > cliente2.Saldo)
+                {
+                    return new Cliente(cliente2.Saldo);
+                }
+                else
+                {
+                    return new Cliente(cliente1.Saldo);
+                }
+            }
+        }
+    }
+    public static class Temperatura
+    {
+        public static double ConvertirCelsiusAFahrenheit(double Celcius)
+        {
+            return Celcius * 2.12;
+        }
+        public static double ConvertirFahrenheitACelcius(double Fahrenheit)
+        {
+            return Fahrenheit / 2.12;
+        }
+    }
+    public static class Rectangulo
+    {
+        public static int CalcularPerimetro(int LadoA,int LadoB)
+        {
+            return 2 * LadoA + 2 * LadoB;
+        }
+        public static int CalcularArea(int Base,int Altura)
+        {
+            return Base * Altura;
+        }
+    }
+    public class ResultadosDecimales
+    {
+        public static decimal operator /(int entero1, int entero2)
+        {
+            return Convert.ToDecimal(entero1) / Convert.ToDecimal(entero2);
+        }
+    }
+
     public static class ClaseEstatica
     {
         public static int ObtenerCantidadDePalabras(this string palabras)
@@ -26,7 +85,11 @@ namespace PracticaConceptos
             }
 
             return CantidadPalabras;
-            
+
+        }
+        public static int RestaEnteros(this int entero1, int entero2)
+        {
+            return entero1 - entero2;
         }
 
         public static int ObtenerCantidadDePalabras(this string palabras,char Separador)
@@ -84,6 +147,50 @@ namespace PracticaConceptos
             return SumaPares * DiferenciaImpares;
         }
 
+        public static DateTime ObtenerDateTime(this string Fecha)
+        {
+            try
+            {
+                DateTime nuevaFecha = Convert.ToDateTime(Fecha);
+            }
+            catch (Exception)
+            {
 
+                return DateTime.MinValue;
+            }
+
+            return Convert.ToDateTime(Fecha);
+        }
+
+        public static string InvertirString(this string palabra)
+        {
+            var Cadena = palabra.ToCharArray();
+            Cadena.Reverse();
+            return new string(Cadena);
+        }
+
+        public static string ObtenerStringSeparadoPorParametro(this string[] Cadena,char Separador)
+        {
+            string Resultado = "";
+
+            foreach (string palabra in Cadena)
+            {
+                Resultado = Resultado + $"{palabra} {Separador}";
+            }
+
+            return Resultado;
+        }
+
+        public const string PatronCorreoElectronico = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+        public static bool EsUnCorreoElectronico(this string Correo)
+        {
+            return Regex.IsMatch(Correo,PatronCorreoElectronico);
+        }
+        public const string PatronCuit = "/^([0-9]{11}|[0-9]{2}-[0-9]{8}-[0-9]{1})$/g";
+        public static bool EsUnCuil(this string Cuit)
+        {
+            return Regex.IsMatch(Cuit, PatronCuit);
+        }
     }
+    
 }
