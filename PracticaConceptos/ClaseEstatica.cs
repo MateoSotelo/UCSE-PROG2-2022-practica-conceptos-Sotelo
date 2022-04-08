@@ -37,22 +37,22 @@ namespace PracticaConceptos
     }
     public static class Temperatura
     {
-        public static double ConvertirCelsiusAFahrenheit(double Celcius)
+        public static double ConvertirCelsiusAFahrenheit(double Celcius) //parametros en minuscula
         {
-            return Celcius * 2.12;
+            return Celcius * 2.12; //2.12 podria ser una constante
         }
-        public static double ConvertirFahrenheitACelcius(double Fahrenheit)
+        public static double ConvertirFahrenheitACelcius(double Fahrenheit) //parametros en minuscula
         {
             return Fahrenheit / 2.12;
         }
     }
     public static class Rectangulo
     {
-        public static int CalcularPerimetro(int LadoA,int LadoB)
+        public static int CalcularPerimetro(int LadoA,int LadoB) //parametros en minuscula
         {
             return 2 * LadoA + 2 * LadoB;
         }
-        public static int CalcularArea(int Base,int Altura)
+        public static int CalcularArea(int Base,int Altura) //parametros en minuscula
         {
             return Base * Altura;
         }
@@ -60,11 +60,13 @@ namespace PracticaConceptos
     public class ResultadosDecimales
     {
         public int Entero { get; set; }
-        public decimal Resultado { get; set; }
+        public decimal Resultado { get; set; } // NO es necesario, con nro es suficiente
         public ResultadosDecimales(int entero)
         {
             this.Entero = entero;
         }
+
+        //int entero podria ser ResultadoDecimal
         public static decimal operator /(ResultadosDecimales resultadosDecimales,int entero)
         {
             decimal Resultado = Convert.ToDecimal(resultadosDecimales.Entero) / Convert.ToDecimal(entero);
@@ -93,7 +95,7 @@ namespace PracticaConceptos
             }
 
             return CantidadPalabras;
-
+            //se puede resolver mas simple return palabras.Split(' ').Length;
         }
         public static int RestaEnteros(this int entero1, int entero2)
         {
@@ -118,6 +120,7 @@ namespace PracticaConceptos
             }
 
             return CantidadPalabras;
+            //Idem anterior se puede resolver en 1 sola linea
         }
         public static decimal CalcularDiferenciaFechas(this DateTime Fecha1,DateTime Fecha2)
         {
@@ -126,7 +129,7 @@ namespace PracticaConceptos
 
             return diferenciaDecimal;
         }
-        public static double ObtenerPromedioDeEnteros(this List<int> ListaEnteros)
+        public static double ObtenerPromedioDeEnteros(this List<int> ListaEnteros) //no hace falta el "enteros" en el nombre
         {
             return ListaEnteros.Average();
         }
@@ -153,6 +156,8 @@ namespace PracticaConceptos
             }
 
             return SumaPares * DiferenciaImpares;
+
+            //usar lambda Where
         }
 
         public static DateTime ObtenerDateTime(this string Fecha)
@@ -187,6 +192,8 @@ namespace PracticaConceptos
             }
 
             return Resultado;
+
+            //Se puede usar String.Join(separador, lista)
         }
 
         public const string PatronCorreoElectronico = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
